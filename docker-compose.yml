@@ -1,0 +1,37 @@
+# version: '3.8' <-- REMOVIDO (Obsoloso)
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: micro_db
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=micro_db
+    ports:
+      # LADO ESQUERDO: Porta do seu Mac (acessível via localhost:5433)
+      # LADO DIREITO: Porta dentro do Container (onde o postgres roda)
+      - "5433:5432"  
+    networks:
+      - micro-net
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  localstack:
+    image: localstack/localstack
+    container_name: micro_localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=sqs,sns,apigateway
+      - DEBUG=1
+    networks:
+      - micro-net
+
+networks:
+  micro-net:
+    driver: bridge
+
+volumes:
+  postgres_data:
