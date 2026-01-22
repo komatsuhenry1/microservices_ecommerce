@@ -20,10 +20,15 @@ func NewAuthHandler(authService service.AuthService) *AuthHandler {
 func (h *AuthHandler) UserRegister(c *gin.Context) {
 	// 1. Criar o DTO e preenchê-lo com os dados do formulário
 	var userRequestDTO dto.UserRegisterRequestDTO
-	userRequestDTO.Name = c.PostForm("name")
-	userRequestDTO.Email = c.PostForm("email")
-	userRequestDTO.Cpf = c.PostForm("cpf")
-	userRequestDTO.Password = c.PostForm("password")
+	// userRequestDTO.Name = c.PostForm("email")
+	// userRequestDTO.Email = c.PostForm("email")
+	// userRequestDTO.Cpf = c.PostForm("cpf")
+	// userRequestDTO.Password = c.PostForm("password")
+
+	if err := c.ShouldBindJSON(&userRequestDTO); err != nil {
+		utils.SendErrorResponse(c, err.Error(), http.StatusBadRequest)
+		return
+	}
 
 	createdUser, err := h.authService.UserRegister(userRequestDTO)
 	if err != nil {

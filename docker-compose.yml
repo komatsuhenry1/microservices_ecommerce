@@ -10,8 +10,6 @@ services:
       - POSTGRES_PASSWORD=secret
       - POSTGRES_DB=micro_db
     ports:
-      # LADO ESQUERDO: Porta do seu Mac (acessível via localhost:5433)
-      # LADO DIREITO: Porta dentro do Container (onde o postgres roda)
       - "5433:5432"  
     networks:
       - micro-net
@@ -24,8 +22,11 @@ services:
     ports:
       - "4566:4566"
     environment:
-      - SERVICES=sqs,sns,apigateway
+      - SERVICES=sqs,sns,apigateway,s3,lambda
       - DEBUG=1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - localstack_data:/var/lib/localstack
     networks:
       - micro-net
 
@@ -35,3 +36,4 @@ networks:
 
 volumes:
   postgres_data:
+  localstack_data:
