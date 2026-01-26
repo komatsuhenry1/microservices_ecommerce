@@ -80,3 +80,16 @@ aws apigateway create-deployment \
   --endpoint-url=http://localhost:4566
 
   
+
+
+----
+
+
+codigo para atualizar o código de um microsserviço:
+(ex auth-service)
+
+aws lambda update-function-code \
+  --function-name auth-service \
+  --zip-file fileb://function.zip \
+  --endpoint-url=http://localhost:4566 \
+  --region us-east-1

@@ -38,3 +38,21 @@ func (h *AuthHandler) UserRegister(c *gin.Context) {
 
 	utils.SendSuccessResponse(c, "usuário criado com sucesso", gin.H{"user": createdUser})
 }
+
+func (h *AuthHandler) UserLogin(c *gin.Context) {
+	// 1. Criar o DTO e preenchê-lo com os dados do formulário
+	var userRequestDTO dto.UserLoginRequestDTO
+
+	if err := c.ShouldBindJSON(&userRequestDTO); err != nil {
+		utils.SendErrorResponse(c, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	verifiedUser, err := h.authService.UserLogin(userRequestDTO)
+	if err != nil {
+		utils.SendErrorResponse(c, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	utils.SendSuccessResponse(c, "usuário logado com sucesso", gin.H{"user": verifiedUser})
+}

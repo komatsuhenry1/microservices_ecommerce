@@ -24,7 +24,7 @@ func init() {
 
 	// 2) Sobe o router Gin (mas SEM Run/Listen)
 	r := router.SetupRoutes(container)
-
+	
 	// 3) Cria o adapter Gin <-> API Gateway
 	ginLambda = ginadapter.New(r)
 

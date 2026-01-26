@@ -7,3 +7,8 @@ type UserRegisterRequestDTO struct {
 	Cpf      string `json:"cpf"`
 	Password string `json:"password"`
 }
+
+type UserLoginRequestDTO struct {
+	Email string `json:"email"`
+	Password string `json:"password"`
+}
