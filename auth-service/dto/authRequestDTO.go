@@ -6,6 +6,7 @@ type UserRegisterRequestDTO struct {
 	Name     string `json:"name"`
 	Cpf      string `json:"cpf"`
 	Password string `json:"password"`
+	AvatarUrl string `json:"avatar_url"`
 }
 
 type UserLoginRequestDTO struct {
