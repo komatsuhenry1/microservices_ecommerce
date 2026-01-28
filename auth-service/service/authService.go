@@ -37,6 +37,7 @@ func (s *authService) UserRegister(registerRequestDTO dto.UserRegisterRequestDTO
 		Cpf: registerRequestDTO.Cpf,
 		Role: "USER",
 		Password: hashedPassword,
+		AvatarUrl: registerRequestDTO.AvatarUrl,
 	}
 
 	err = s.userRepository.CreateUser(user)

@@ -5,10 +5,8 @@ import (
 	"auth-service/utils"
 	"net/http"
 	"auth-service/service"
-	"fmt"
 
 	"github.com/gin-gonic/gin"
-	"log"
 )
 
 type AuthHandler struct {
@@ -55,11 +53,6 @@ func (h *AuthHandler) UserLogin(c *gin.Context) {
 		utils.SendErrorResponse(c, err.Error(), http.StatusBadRequest)
 		return
 	}
-
-
-	fmt.Println("userrrr", user)
-	fmt.Println("tokennnnn", token)
-	log.Println(token)
 
 	utils.SendSuccessResponse(c, "usuário logado com sucesso", gin.H{"user": user, "token": token})
 }
