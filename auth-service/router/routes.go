@@ -7,7 +7,8 @@ import (
 
 func SetupRoutes(container *di.Container) *gin.Engine {
 	router := gin.Default()
-	router.POST("/register", container.AuthHandler.UserRegister)
-	router.POST("/login", container.AuthHandler.UserLogin)
+	auth := router.Group("/auth")
+	auth.POST("/register", container.AuthHandler.UserRegister)
+	auth.POST("/login", container.AuthHandler.UserLogin)
 	return router
 }
