@@ -23,3 +23,6 @@ aws --region "$REGION" lambda update-function-code \
   --endpoint-url "$LS_ENDPOINT" >/dev/null
 
 echo "✅ Code updated for '$FUNC_NAME'"
+
+
+#FUNC_NAME=scheduling-service ./code_update.sh
