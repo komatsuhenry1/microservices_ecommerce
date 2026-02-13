@@ -26,6 +26,6 @@ func (r *userRepository) CreateUser(user *model.User) error {
 func (r *userRepository) GetUserByEmail(email string) (model.User, error) {
 	var user model.User
 	row := r.db.QueryRow("SELECT * FROM users WHERE email = $1", email)
-	err := row.Scan(&user.ID, &user.Email, &user.Name, &user.Cpf, &user.Password, &user.AvatarUrl, &user.Role)
+	err := row.Scan(&user.ID, &user.Email, &user.Name, &user.Cpf, &user.Password, &user.AvatarUrl, &user.Role, &user.CreatedAt, &user.UpdatedAt)
 	return user, err
 }

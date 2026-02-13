@@ -6,6 +6,7 @@ import (
 	"auth-service/utils"
 	"context"
 	"log"
+
 	_ "github.com/jackc/pgx/v5/stdlib"
 
 	"github.com/aws/aws-lambda-go/events"
@@ -20,11 +21,17 @@ var ginLambda *ginadapter.GinLambda
 func init() {
 	// 1) Conecta no DB (do jeito que você já faz hoje, ou via utils/connect)
 	db := utils.ConnectRDS()
+
+	// Executa as migrations
+	if err := utils.RunMigrations(db, migrationsFS); err != nil {
+		log.Fatalf("Erro ao rodar migrations: %v", err)
+	}
+
 	container := di.NewContainer(db)
 
 	// 2) Sobe o router Gin (mas SEM Run/Listen)
 	r := router.SetupRoutes(container)
-	
+
 	// 3) Cria o adapter Gin <-> API Gateway
 	ginLambda = ginadapter.New(r)
 
