@@ -10,3 +10,10 @@ type SchedulingResponseDTO struct {
 	Time        string `json:"time"`
 	Status      string `json:"status"`
 }
+
+type DashboardResponseDTO struct {
+	TotalSchedules int `json:"total_schedules"`
+	PendingSchedules int `json:"pending_schedules"`
+	CompletedSchedules int `json:"completed_schedules"`
+	CancelledSchedules int `json:"cancelled_schedules"`
+}

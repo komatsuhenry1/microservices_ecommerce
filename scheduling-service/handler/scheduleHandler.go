@@ -3,6 +3,8 @@ package handler
 import (
 	"scheduling-service/dto"
 	"scheduling-service/service"
+	"scheduling-service/utils"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -28,4 +30,14 @@ func (h *ScheduleHandler) CreateSchedule(c *gin.Context) {
 	}
 
 	c.JSON(200, gin.H{"message": "Schedule created successfully"})
+}
+
+func (h *ScheduleHandler) GetDashboard(c *gin.Context) {
+	dashbordData, err := h.schedulingService.GetDashboard()
+	if err != nil {
+		utils.SendErrorResponse(c, "Failed to get dashboard data", http.StatusInternalServerError)
+		return
+	}
+
+	c.JSON(200, dashbordData)
 }

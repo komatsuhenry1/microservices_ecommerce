@@ -10,6 +10,7 @@ func SetupRoutes(container *di.Container) *gin.Engine {
 	scheduling := router.Group("/scheduling")
 
 	scheduling.POST("/create", container.ScheduleHandler.CreateSchedule)
+	scheduling.GET("/dashboard", container.ScheduleHandler.GetDashboard)
 
 	// scheduling.POST("/register", container.AuthHandler.UserRegister)
 	// scheduling.POST("/login", container.AuthHandler.UserLogin)
