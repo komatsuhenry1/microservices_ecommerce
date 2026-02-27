@@ -26,10 +26,10 @@ func (s *schedulingService) CreateSchedule(schedule *dto.SchedulingRequestDTO) e
 func (s *schedulingService) GetDashboard() (*dto.DashboardResponseDTO, error) {
 
 	dashbboardData := dto.DashboardResponseDTO{
-		TotalSchedules: 0,
-		PendingSchedules: 0,
-		CompletedSchedules: 0,
-		CancelledSchedules: 0,
+		TotalSchedules: 44,
+		PendingSchedules: 22,
+		CompletedSchedules: 11,
+		CancelledSchedules: 11,
 	}
 
 	return &dashbboardData, nil

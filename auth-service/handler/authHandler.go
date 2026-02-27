@@ -40,7 +40,6 @@ func (h *AuthHandler) UserRegister(c *gin.Context) {
 }
 
 func (h *AuthHandler) UserLogin(c *gin.Context) {
-	// 1. Criar o DTO e preenchê-lo com os dados do formulário
 	var userRequestDTO dto.UserLoginRequestDTO
 
 	if err := c.ShouldBindJSON(&userRequestDTO); err != nil {
@@ -55,4 +54,13 @@ func (h *AuthHandler) UserLogin(c *gin.Context) {
 	}
 
 	utils.SendSuccessResponse(c, "usuário logado com sucesso", gin.H{"user": user, "token": token})
+}
+
+func (h *AuthHandler) GetUsers(c *gin.Context) {
+	users, err := h.authService.GetUsers()
+	if err != nil {
+		utils.SendErrorResponse(c, err.Error(), http.StatusBadRequest)
+		return
+	}
+	utils.SendSuccessResponse(c, "usuários listados com sucesso", gin.H{"users": users})
 }

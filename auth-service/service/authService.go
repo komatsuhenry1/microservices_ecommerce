@@ -13,6 +13,7 @@ import (
 type AuthService interface {
 	UserRegister(registerRequestDTO dto.UserRegisterRequestDTO) (model.User, error)
 	UserLogin(loginRequestDTO dto.UserLoginRequestDTO) (model.User, string, error)
+	GetUsers() ([]model.User, error)
 }
 
 type authService struct {
@@ -64,4 +65,8 @@ func (s *authService) UserLogin(loginRequestDTO dto.UserLoginRequestDTO) (model.
 	}
 
 	return user, token, nil
+}
+
+func (s *authService) GetUsers() ([]model.User, error) {
+	return s.userRepository.GetUsers()
 }
